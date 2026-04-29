@@ -63,11 +63,11 @@ A WPF desktop application built on .NET 8 for managing Microsoft Intune environm
   - Unassigned Apps
   - Apps by Type
   - Windows Devices Not Encrypted (BitLocker)
-  - BitLocker Encryption Status (all Windows devices) -WIP
-  - Google Chrome Versions (with out-of-date detection) -WIP
-  - Mozilla Firefox Versions (with out-of-date detection) -WIP
-  - Microsoft Edge Versions (with out-of-date detection) -WIP
-  - Microsoft 365 Apps Versions (with out-of-date detection) -WIP
+  - BitLocker Encryption Status (all Windows devices)
+  - Google Chrome Versions (with out-of-date detection)
+  - Mozilla Firefox Versions (with out-of-date detection)
+  - Microsoft Edge Versions (with out-of-date detection)
+  - Microsoft 365 Apps Versions (with out-of-date detection)
 - Cancel running reports at any time
 
 ### Home
