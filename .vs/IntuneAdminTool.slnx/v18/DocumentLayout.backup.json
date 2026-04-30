@@ -3,32 +3,12 @@
   "WorkspaceRootPath": "C:\\Temp\\Github\\Intune_Admin_Tool\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|c:\\temp\\github\\intune_admin_tool\\intuneadmintool\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|solutionrelative:intuneadmintool\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|c:\\temp\\github\\intune_admin_tool\\intuneadmintool\\views\\m365appsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|solutionrelative:intuneadmintool\\views\\m365appsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Temp\\Github\\Intune_Admin_Tool\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|c:\\temp\\github\\intune_admin_tool\\intuneadmintool\\services\\igraphservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|solutionrelative:intuneadmintool\\services\\igraphservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|c:\\temp\\github\\intune_admin_tool\\intuneadmintool\\services\\graphservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|solutionrelative:intuneadmintool\\services\\graphservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|c:\\temp\\github\\intune_admin_tool\\intuneadmintool\\viewmodels\\m365appsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|solutionrelative:intuneadmintool\\viewmodels\\m365appsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|c:\\temp\\github\\intune_admin_tool\\intuneadmintool\\views\\m365appsview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|solutionrelative:intuneadmintool\\views\\m365appsview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|c:\\temp\\github\\intune_admin_tool\\intuneadmintool\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0ADE52E0-2BA4-5D3E-C84E-48CC9E006DD3}|IntuneAdminTool\\IntuneAdminTool.csproj|solutionrelative:intuneadmintool\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -45,96 +25,29 @@
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "IntuneAdminTool\\MainWindow.xaml",
-              "ToolTip": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\MainWindow.xaml",
-              "RelativeToolTip": "IntuneAdminTool\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-04-30T13:46:09.98Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "MainViewModel.cs",
-              "DocumentMoniker": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\ViewModels\\MainViewModel.cs",
-              "RelativeDocumentMoniker": "IntuneAdminTool\\ViewModels\\MainViewModel.cs",
-              "ToolTip": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\ViewModels\\MainViewModel.cs",
-              "RelativeToolTip": "IntuneAdminTool\\ViewModels\\MainViewModel.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAIBWwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T13:45:58.963Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "M365AppsView.xaml.cs",
-              "DocumentMoniker": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\Views\\M365AppsView.xaml.cs",
-              "RelativeDocumentMoniker": "IntuneAdminTool\\Views\\M365AppsView.xaml.cs",
-              "ToolTip": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\Views\\M365AppsView.xaml.cs",
-              "RelativeToolTip": "IntuneAdminTool\\Views\\M365AppsView.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T13:45:49.88Z",
-              "EditorCaption": ""
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "M365AppsView.xaml",
-              "DocumentMoniker": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\Views\\M365AppsView.xaml",
-              "RelativeDocumentMoniker": "IntuneAdminTool\\Views\\M365AppsView.xaml",
-              "ToolTip": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\Views\\M365AppsView.xaml",
-              "RelativeToolTip": "IntuneAdminTool\\Views\\M365AppsView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-04-30T13:45:42.294Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "M365AppsViewModel.cs",
               "DocumentMoniker": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\ViewModels\\M365AppsViewModel.cs",
               "RelativeDocumentMoniker": "IntuneAdminTool\\ViewModels\\M365AppsViewModel.cs",
               "ToolTip": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\ViewModels\\M365AppsViewModel.cs",
               "RelativeToolTip": "IntuneAdminTool\\ViewModels\\M365AppsViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAiwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T13:45:16.252Z",
+              "WhenOpened": "2026-04-30T15:43:46.299Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IGraphService.cs",
-              "DocumentMoniker": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\Services\\IGraphService.cs",
-              "RelativeDocumentMoniker": "IntuneAdminTool\\Services\\IGraphService.cs",
-              "ToolTip": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\Services\\IGraphService.cs",
-              "RelativeToolTip": "IntuneAdminTool\\Services\\IGraphService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "GraphService.cs",
+              "DocumentMoniker": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\Services\\GraphService.cs",
+              "RelativeDocumentMoniker": "IntuneAdminTool\\Services\\GraphService.cs",
+              "ToolTip": "C:\\Temp\\Github\\Intune_Admin_Tool\\IntuneAdminTool\\Services\\GraphService.cs",
+              "RelativeToolTip": "IntuneAdminTool\\Services\\GraphService.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAqwBkAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T13:44:47.03Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": ".gitignore",
-              "DocumentMoniker": "C:\\Temp\\Github\\Intune_Admin_Tool\\.gitignore",
-              "RelativeDocumentMoniker": ".gitignore",
-              "ToolTip": "C:\\Temp\\Github\\Intune_Admin_Tool\\.gitignore",
-              "RelativeToolTip": ".gitignore",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-04-30T13:43:41.347Z",
+              "WhenOpened": "2026-04-30T15:43:37.045Z",
               "EditorCaption": ""
             }
           ]

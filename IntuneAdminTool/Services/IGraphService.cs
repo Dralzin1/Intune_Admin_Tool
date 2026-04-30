@@ -166,7 +166,8 @@ public record DetectedAppDevice(
     string? DeviceName,
     string? DeviceId,
     string? AppVersion,
-    string? AppDisplayName);
+    string? AppDisplayName,
+    string? UserPrincipalName);
 
 public record AppProtectionPolicyItem(
     string? Id,

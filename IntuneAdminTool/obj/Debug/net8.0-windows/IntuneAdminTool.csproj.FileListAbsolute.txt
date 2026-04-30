@@ -35,6 +35,7 @@ C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\ComplianceView.baml
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\ConfigurationView.baml
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\DevicesView.baml
+C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\M365AppsView.baml
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\ReportsView.baml
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\SettingsView.baml
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\WindowsUpdatesView.baml
@@ -45,6 +46,7 @@ C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\ComplianceView.g.cs
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\ConfigurationView.g.cs
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\DevicesView.g.cs
+C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\M365AppsView.g.cs
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\ReportsView.g.cs
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\SettingsView.g.cs
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\WindowsUpdatesView.g.cs
@@ -68,5 +70,3 @@ C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\refint
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\IntuneAdminTool.pdb
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\IntuneAdminTool.genruntimeconfig.cache
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\ref\IntuneAdminTool.dll
-C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\M365AppsView.baml
-C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\M365AppsView.g.cs

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IntuneAdminTool")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d89068bf63ed33d326ecd38999d9cb6afb224066")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e5d3893dd3b3f9492c8b7f51c20c9d13c054f0d")]
 [assembly: System.Reflection.AssemblyProductAttribute("IntuneAdminTool")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IntuneAdminTool")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

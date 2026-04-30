@@ -17,6 +17,9 @@ public partial class M365AppsViewModel : ObservableObject
     private string? _errorMessage;
 
     [ObservableProperty]
+    private string? _statusMessage;
+
+    [ObservableProperty]
     private int _selectedTabIndex;
 
     // Dashboard summary
@@ -60,26 +63,20 @@ public partial class M365AppsViewModel : ObservableObject
         {
             IsLoading = true;
             ErrorMessage = null;
+            StatusMessage = "Fetching latest version info and detected apps...";
 
-            // Fetch the latest M365 Apps version
-            string? latestVersion = null;
-            try
-            {
-                using var httpClient = new HttpClient();
-                var response = await httpClient.GetStringAsync(
-                    "https://clients.config.office.net/releases/v1.0/OfficeReleases");
-                var match = System.Text.RegularExpressions.Regex.Match(response,
-                    "\"latestVersion\"\\s*:\\s*\"([^\"]+)\"");
-                if (match.Success) latestVersion = match.Groups[1].Value;
-            }
-            catch { }
+            // Run the version check and device fetch concurrently
+            var versionTask = FetchLatestVersionAsync();
+            var devicesTask = FetchDetectedDevicesAsync();
+
+            await Task.WhenAll(versionTask, devicesTask);
+
+            var latestVersion = versionTask.Result;
+            var devices = devicesTask.Result;
 
             LatestVersion = latestVersion ?? "Unable to determine";
 
-            // Fetch detected M365 Apps devices
-            var devices = await _graphService.GetDetectedAppDevicesAsync("Microsoft 365 Apps");
-            if (devices.Count == 0)
-                devices = await _graphService.GetDetectedAppDevicesAsync("Microsoft Office");
+            StatusMessage = "Processing results...";
 
             // Build device items
             var items = devices
@@ -98,7 +95,9 @@ public partial class M365AppsViewModel : ObservableObject
                         d.AppVersion ?? "Unknown",
                         d.AppDisplayName ?? "",
                         latestVersion ?? "",
-                        status);
+                        status,
+                        d.UserPrincipalName ?? "",
+                        DeriveUpdateChannel(d.AppDisplayName));
                 }).ToList();
 
             // Populate collections
@@ -124,15 +123,41 @@ public partial class M365AppsViewModel : ObservableObject
 
             VersionSummary = new ObservableCollection<M365VersionSummary>(versionGroups);
             UniqueVersionCount = versionGroups.Count;
+            StatusMessage = $"{items.Count} device(s) loaded.";
         }
         catch (Exception ex)
         {
             ErrorMessage = $"Failed to load Microsoft 365 Apps data: {ex.Message}";
+            StatusMessage = null;
         }
         finally
         {
             IsLoading = false;
         }
+    }
+
+    private static async Task<string?> FetchLatestVersionAsync()
+    {
+        try
+        {
+            using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
+            var response = await httpClient.GetStringAsync(
+                "https://clients.config.office.net/releases/v1.0/OfficeReleases");
+            var match = System.Text.RegularExpressions.Regex.Match(response,
+                "\"latestVersion\"\\s*:\\s*\"([^\"]+)\"");
+            if (match.Success) return match.Groups[1].Value;
+        }
+        catch { }
+        return null;
+    }
+
+    private async Task<List<DetectedAppDevice>> FetchDetectedDevicesAsync()
+    {
+        var result = await _graphService.GetDetectedAppDevicesAsync("Microsoft 365 Apps");
+        if (result.Count > 0)
+            return result;
+
+        return await _graphService.GetDetectedAppDevicesAsync("Microsoft Office");
     }
 
     private static int CompareVersions(string installed, string latest)
@@ -150,6 +175,29 @@ public partial class M365AppsViewModel : ObservableObject
         }
         return 0;
     }
+
+    private static string DeriveUpdateChannel(string? appDisplayName)
+    {
+        if (string.IsNullOrEmpty(appDisplayName)) return "Unknown";
+
+        var name = appDisplayName.ToLowerInvariant();
+        if (name.Contains("current channel (preview)") || name.Contains("cc (preview)"))
+            return "Current Channel (Preview)";
+        if (name.Contains("current channel") || name.Contains("monthly"))
+            return "Current Channel";
+        if (name.Contains("monthly enterprise"))
+            return "Monthly Enterprise Channel";
+        if (name.Contains("semi-annual enterprise (preview)") || name.Contains("sac (preview)"))
+            return "Semi-Annual Enterprise Channel (Preview)";
+        if (name.Contains("semi-annual enterprise") || name.Contains("semi-annual") || name.Contains("sac"))
+            return "Semi-Annual Enterprise Channel";
+        if (name.Contains("beta"))
+            return "Beta Channel";
+        if (name.Contains("ltsc") || name.Contains("perpetual"))
+            return "LTSC";
+
+        return "Unknown";
+    }
 }
 
 public record M365AppDeviceItem(
@@ -158,7 +206,9 @@ public record M365AppDeviceItem(
     string InstalledVersion,
     string AppDisplayName,
     string LatestVersion,
-    string Status);
+    string Status,
+    string UserPrincipalName,
+    string UpdateChannel);
 
 public record M365VersionSummary(
     string Version,
