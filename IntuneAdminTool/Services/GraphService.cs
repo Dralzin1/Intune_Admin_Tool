@@ -64,7 +64,7 @@ public class GraphService : IGraphService
                 var requestInfo = new Microsoft.Kiota.Abstractions.RequestInformation
                 {
                     HttpMethod = Microsoft.Kiota.Abstractions.Method.GET,
-                    UrlTemplate = url
+                    URI = new Uri(url)
                 };
 
                 System.IO.Stream? stream = null;
@@ -910,32 +910,31 @@ public class GraphService : IGraphService
                 .ToList();
         }
 
-        var results = new List<DetectedAppDevice>();
+        var appInfos = detectedApps
+            .Select(app => (
+                AppId: app.TryGetProperty("id", out var id) ? id.GetString() : null,
+                AppDisplayName: app.TryGetProperty("displayName", out var dn) ? dn.GetString() : null,
+                AppVersion: app.TryGetProperty("version", out var ver) ? ver.GetString() : null
+            ))
+            .Where(a => a.AppId != null)
+            .ToList();
 
-        foreach (var app in detectedApps)
+        // Fetch devices for all detected apps concurrently
+        var tasks = appInfos.Select(async app =>
         {
-            var appId = app.TryGetProperty("id", out var id) ? id.GetString() : null;
-            var appDisplayName = app.TryGetProperty("displayName", out var dn) ? dn.GetString() : null;
-            var appVersion = app.TryGetProperty("version", out var ver) ? ver.GetString() : null;
-
-            if (appId == null) continue;
-
-            // Get devices with this app installed
             var devices = await FetchAllPagesRawAsync(
-                $"https://graph.microsoft.com/beta/deviceManagement/detectedApps/{appId}/managedDevices?$select=id,deviceName&$top=999");
+                $"https://graph.microsoft.com/beta/deviceManagement/detectedApps/{app.AppId}/managedDevices?$select=id,deviceName&$top=999");
 
-            foreach (var device in devices)
-            {
-                results.Add(new DetectedAppDevice(
-                    device.TryGetProperty("deviceName", out var devName) ? devName.GetString() : null,
-                    device.TryGetProperty("id", out var devId) ? devId.GetString() : null,
-                    appVersion,
-                    appDisplayName
-                ));
-            }
-        }
+            return devices.Select(device => new DetectedAppDevice(
+                device.TryGetProperty("deviceName", out var devName) ? devName.GetString() : null,
+                device.TryGetProperty("id", out var devId) ? devId.GetString() : null,
+                app.AppVersion,
+                app.AppDisplayName
+            ));
+        }).ToList();
 
-        return results;
+        var allResults = await Task.WhenAll(tasks);
+        return allResults.SelectMany(r => r).ToList();
     }
 
     public async Task<List<AutopilotPrepPolicyItem>> GetDevicePreparationPoliciesAsync()

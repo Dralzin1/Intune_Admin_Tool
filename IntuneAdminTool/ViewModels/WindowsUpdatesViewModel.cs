@@ -49,15 +49,25 @@ public partial class WindowsUpdatesViewModel : ObservableObject
             IsLoading = true;
             ErrorMessage = null;
 
+            var errors = new List<string>();
+
             var ringsTask = SafeLoadAsync(_graphService.GetWindowsUpdateRingsAsync);
             var featureTask = SafeLoadAsync(_graphService.GetWindowsFeatureUpdatesAsync);
             var driverTask = SafeLoadAsync(_graphService.GetWindowsDriverUpdatesAsync);
 
             await Task.WhenAll(ringsTask, featureTask, driverTask);
 
-            UpdateRings = new ObservableCollection<WindowsUpdateRing>(ringsTask.Result);
-            FeatureUpdates = new ObservableCollection<WindowsFeatureUpdate>(featureTask.Result);
-            DriverUpdates = new ObservableCollection<WindowsDriverUpdate>(driverTask.Result);
+            UpdateRings = new ObservableCollection<WindowsUpdateRing>(ringsTask.Result.Data);
+            if (ringsTask.Result.Error != null) errors.Add($"Update Rings: {ringsTask.Result.Error}");
+
+            FeatureUpdates = new ObservableCollection<WindowsFeatureUpdate>(featureTask.Result.Data);
+            if (featureTask.Result.Error != null) errors.Add($"Feature Updates: {featureTask.Result.Error}");
+
+            DriverUpdates = new ObservableCollection<WindowsDriverUpdate>(driverTask.Result.Data);
+            if (driverTask.Result.Error != null) errors.Add($"Driver Updates: {driverTask.Result.Error}");
+
+            if (errors.Count > 0)
+                ErrorMessage = $"Failed to load: {string.Join("; ", errors)}";
         }
         catch (Exception ex)
         {
@@ -69,15 +79,15 @@ public partial class WindowsUpdatesViewModel : ObservableObject
         }
     }
 
-    private static async Task<List<T>> SafeLoadAsync<T>(Func<Task<List<T>>> loader)
+    private static async Task<(List<T> Data, string? Error)> SafeLoadAsync<T>(Func<Task<List<T>>> loader)
     {
         try
         {
-            return await loader();
+            return (await loader(), null);
         }
-        catch
+        catch (Exception ex)
         {
-            return [];
+            return ([], ex.Message);
         }
     }
 }

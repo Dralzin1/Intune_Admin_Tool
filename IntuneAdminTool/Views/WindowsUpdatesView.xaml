@@ -66,7 +66,7 @@
             </TabItem>
 
             <!-- Feature Updates Tab -->
-            <TabItem Header="Feature Updates">
+            <TabItem Header="Feature Updates" Visibility="Collapsed">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -115,7 +115,7 @@
             </TabItem>
 
             <!-- Driver Updates Tab -->
-            <TabItem Header="Driver Updates">
+            <TabItem Header="Driver Updates" Visibility="Collapsed">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

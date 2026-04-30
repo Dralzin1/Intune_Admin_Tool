@@ -56,12 +56,7 @@ public partial class ReportsViewModel : ObservableObject
                 ReportCategory.Apps, GenerateAppsByTypeAsync),
             new ReportDefinition("Windows Devices Not Encrypted", "Windows devices not encrypted with BitLocker",
                 ReportCategory.Devices, GenerateUnencryptedWindowsDevicesAsync),
-            new ReportDefinition("Google Chrome Versions", "Google Chrome versions installed on Windows devices with out-of-date detection",
-                ReportCategory.Apps, GenerateChromeVersionReportAsync),
-            new ReportDefinition("Mozilla Firefox Versions", "Mozilla Firefox versions installed on Windows devices with out-of-date detection",
-                ReportCategory.Apps, GenerateFirefoxVersionReportAsync),
-            new ReportDefinition("Microsoft Edge Versions", "Microsoft Edge versions installed on Windows devices with out-of-date detection",
-                ReportCategory.Apps, GenerateEdgeVersionReportAsync),
+
             new ReportDefinition("Microsoft 365 Apps Versions", "Microsoft 365 Apps versions installed on Windows devices with out-of-date detection",
                 ReportCategory.Apps, GenerateM365AppsVersionReportAsync),
             new ReportDefinition("BitLocker Encryption Status", "BitLocker encryption status of all Windows devices",
@@ -419,13 +414,27 @@ public partial class ReportsViewModel : ObservableObject
         string? latestVersion = null;
         try
         {
-            using var httpClient = new HttpClient();
+            using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(15) };
             var response = await httpClient.GetStringAsync("https://edgeupdates.microsoft.com/api/products");
-            // Find Stable channel version
-            var stableMatch = System.Text.RegularExpressions.Regex.Match(response,
-                "\"Product\"\\s*:\\s*\"Stable\".*?\"ProductVersion\"\\s*:\\s*\"([^\"]+)\"",
-                System.Text.RegularExpressions.RegexOptions.Singleline);
-            if (stableMatch.Success) latestVersion = stableMatch.Groups[1].Value;
+            // Parse JSON to find Stable channel version
+            var doc = System.Text.Json.JsonDocument.Parse(response);
+            foreach (var product in doc.RootElement.EnumerateArray())
+            {
+                if (product.TryGetProperty("Product", out var prod) &&
+                    string.Equals(prod.GetString(), "Stable", StringComparison.OrdinalIgnoreCase) &&
+                    product.TryGetProperty("Releases", out var releases))
+                {
+                    foreach (var release in releases.EnumerateArray())
+                    {
+                        if (release.TryGetProperty("ProductVersion", out var ver))
+                        {
+                            latestVersion = ver.GetString();
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
         }
         catch { }
 
