@@ -52,7 +52,7 @@ namespace IntuneAdminTool.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/IntuneAdminTool;component/views/windowsupdatesview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/IntuneAdminTool;V1.0.0.0;component/views/windowsupdatesview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\WindowsUpdatesView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

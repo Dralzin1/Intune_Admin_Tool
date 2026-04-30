@@ -97,6 +97,13 @@
                                     <TextBlock Text="Apps" FontSize="13" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
+                            <Button Command="{Binding NavigateToM365AppsCommand}" Style="{StaticResource NavButtonStyle}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE8F1;" FontFamily="Segoe MDL2 Assets" FontSize="16" 
+                                               VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                    <TextBlock Text="Microsoft 365 Apps" FontSize="13" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                             <Button Command="{Binding NavigateToAppProtectionCommand}" Style="{StaticResource NavButtonStyle}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="&#xE72E;" FontFamily="Segoe MDL2 Assets" FontSize="16" 
@@ -165,6 +172,9 @@
                         </DataTemplate>
                         <DataTemplate DataType="{x:Type vm:AppsViewModel}">
                             <views:AppsView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type vm:M365AppsViewModel}">
+                            <views:M365AppsView/>
                         </DataTemplate>
                         <DataTemplate DataType="{x:Type vm:AppProtectionViewModel}">
                             <views:AppProtectionView/>

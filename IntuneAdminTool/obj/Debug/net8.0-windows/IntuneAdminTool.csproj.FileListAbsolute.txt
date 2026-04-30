@@ -68,3 +68,5 @@ C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\refint
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\IntuneAdminTool.pdb
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\IntuneAdminTool.genruntimeconfig.cache
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\ref\IntuneAdminTool.dll
+C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\M365AppsView.baml
+C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\obj\Debug\net8.0-windows\Views\M365AppsView.g.cs

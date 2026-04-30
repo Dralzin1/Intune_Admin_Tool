@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Temp\Github\Intune_Admin_Tool\IntuneAdminTool\App.xaml
-10-790520447
+11-107369092
 
-30-251768402
+321403736417
 223-666700906
-MainWindow.xaml;Views\AppProtectionView.xaml;Views\AppsView.xaml;Views\AutopilotView.xaml;Views\ComplianceView.xaml;Views\ConfigurationView.xaml;Views\DevicesView.xaml;Views\ReportsView.xaml;Views\SettingsView.xaml;Views\WindowsUpdatesView.xaml;
+MainWindow.xaml;Views\AppProtectionView.xaml;Views\AppsView.xaml;Views\AutopilotView.xaml;Views\ComplianceView.xaml;Views\ConfigurationView.xaml;Views\DevicesView.xaml;Views\M365AppsView.xaml;Views\ReportsView.xaml;Views\SettingsView.xaml;Views\WindowsUpdatesView.xaml;
 images\intunelogo.png
 True
 
