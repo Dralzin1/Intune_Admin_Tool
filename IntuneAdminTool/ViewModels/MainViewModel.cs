@@ -158,6 +158,7 @@ public partial class MainViewModel : ObservableObject
         _ = WindowsUpdatesViewModel.LoadWindowsUpdatesCommand.ExecuteAsync(null);
     }
 
+
     [RelayCommand]
     private void NavigateToReports()
     {

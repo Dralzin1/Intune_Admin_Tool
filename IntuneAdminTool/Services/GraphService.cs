@@ -35,7 +35,7 @@ public class GraphService : IGraphService
         _cachedDevices = null;
         _cachedUsers = null;
         _groupLookup = null;
-    }
+        }
 
     private GraphServiceClient GetClient()
     {
@@ -68,7 +68,7 @@ public class GraphService : IGraphService
                 };
 
                 System.IO.Stream? stream = null;
-                for (int attempt = 0; attempt < 3; attempt++)
+                for (int attempt = 0; attempt < 5; attempt++)
                 {
                     try
                     {
@@ -77,8 +77,19 @@ public class GraphService : IGraphService
                     }
                     catch (Microsoft.Graph.Models.ODataErrors.ODataError ex) when (ex.ResponseStatusCode == 429)
                     {
-                        var delay = (attempt + 1) * 2;
-                        await Task.Delay(TimeSpan.FromSeconds(delay)).ConfigureAwait(false);
+                        var retryAfter = ex.ResponseHeaders != null
+                            && ex.ResponseHeaders.TryGetValue("Retry-After", out var values)
+                            && values.FirstOrDefault() is string raValue
+                            && int.TryParse(raValue, out var raSec)
+                            ? raSec
+                            : (int)Math.Pow(2, attempt + 1);
+                        await Task.Delay(TimeSpan.FromSeconds(Math.Min(retryAfter, 60))).ConfigureAwait(false);
+                    }
+                    catch (Microsoft.Graph.Models.ODataErrors.ODataError ex) when (ex.ResponseStatusCode >= 500 && ex.ResponseStatusCode < 600)
+                    {
+                        // Retry on transient server errors
+                        var delay = (int)Math.Pow(2, attempt + 1);
+                        await Task.Delay(TimeSpan.FromSeconds(Math.Min(delay, 30))).ConfigureAwait(false);
                     }
                 }
 
@@ -890,51 +901,6 @@ public class GraphService : IGraphService
 
         if (endpoint == null) return [];
         return await GetAssignmentsFromUrlAsync(endpoint);
-    }
-
-    public async Task<List<DetectedAppDevice>> GetDetectedAppDevicesAsync(string appName)
-    {
-        // Get detected apps matching the name
-        var encodedName = Uri.EscapeDataString(appName);
-        var detectedApps = await FetchAllPagesRawAsync(
-            $"https://graph.microsoft.com/beta/deviceManagement/detectedApps?$filter=contains(displayName,'{encodedName}')&$top=999");
-
-        if (detectedApps.Count == 0)
-        {
-            // Fallback: fetch all and filter client-side
-            detectedApps = await FetchAllPagesRawAsync(
-                "https://graph.microsoft.com/beta/deviceManagement/detectedApps?$top=999");
-            detectedApps = detectedApps
-                .Where(a => a.TryGetProperty("displayName", out var dn) &&
-                            dn.GetString()?.Contains(appName, StringComparison.OrdinalIgnoreCase) == true)
-                .ToList();
-        }
-
-        var appInfos = detectedApps
-            .Select(app => (
-                AppId: app.TryGetProperty("id", out var id) ? id.GetString() : null,
-                AppDisplayName: app.TryGetProperty("displayName", out var dn) ? dn.GetString() : null,
-                AppVersion: app.TryGetProperty("version", out var ver) ? ver.GetString() : null
-            ))
-            .Where(a => a.AppId != null)
-            .ToList();
-
-        // Fetch devices for all detected apps concurrently
-        var tasks = appInfos.Select(async app =>
-        {
-            var devices = await FetchAllPagesRawAsync(
-                $"https://graph.microsoft.com/beta/deviceManagement/detectedApps/{app.AppId}/managedDevices?$select=id,deviceName&$top=999");
-
-            return devices.Select(device => new DetectedAppDevice(
-                device.TryGetProperty("deviceName", out var devName) ? devName.GetString() : null,
-                device.TryGetProperty("id", out var devId) ? devId.GetString() : null,
-                app.AppVersion,
-                app.AppDisplayName
-            ));
-        }).ToList();
-
-        var allResults = await Task.WhenAll(tasks);
-        return allResults.SelectMany(r => r).ToList();
     }
 
     public async Task<List<AutopilotPrepPolicyItem>> GetDevicePreparationPoliciesAsync()
