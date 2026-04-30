@@ -15,7 +15,6 @@ public class GraphService : IGraphService
     private List<ManagedDevice>? _cachedDevices;
     private List<User>? _cachedUsers;
     private Dictionary<string, string>? _groupLookup;
-    private readonly Dictionary<string, (List<DetectedAppDevice> Data, DateTime Time)> _detectedAppCache = new(StringComparer.OrdinalIgnoreCase);
     private DateTime _devicesCacheTime;
     private DateTime _usersCacheTime;
     private DateTime _groupLookupCacheTime;
@@ -36,8 +35,7 @@ public class GraphService : IGraphService
         _cachedDevices = null;
         _cachedUsers = null;
         _groupLookup = null;
-        _detectedAppCache.Clear();
-    }
+        }
 
     private GraphServiceClient GetClient()
     {
@@ -903,69 +901,6 @@ public class GraphService : IGraphService
 
         if (endpoint == null) return [];
         return await GetAssignmentsFromUrlAsync(endpoint);
-    }
-
-    public async Task<List<DetectedAppDevice>> GetDetectedAppDevicesAsync(string appName)
-    {
-        // Return cached results if available
-        if (_detectedAppCache.TryGetValue(appName, out var cached) &&
-            DateTime.UtcNow - cached.Time < CacheDuration)
-        {
-            return cached.Data;
-        }
-
-        // Get detected apps matching the name
-        var encodedName = Uri.EscapeDataString(appName);
-        var detectedApps = await FetchAllPagesRawAsync(
-            $"https://graph.microsoft.com/beta/deviceManagement/detectedApps?$filter=contains(displayName,'{encodedName}')&$top=999");
-
-        if (detectedApps.Count == 0)
-        {
-            // Fallback: fetch all and filter client-side
-            detectedApps = await FetchAllPagesRawAsync(
-                "https://graph.microsoft.com/beta/deviceManagement/detectedApps?$top=999");
-            detectedApps = detectedApps
-                .Where(a => a.TryGetProperty("displayName", out var dn) &&
-                            dn.GetString()?.Contains(appName, StringComparison.OrdinalIgnoreCase) == true)
-                .ToList();
-        }
-
-        var appInfos = detectedApps
-            .Select(app => (
-                AppId: app.TryGetProperty("id", out var id) ? id.GetString() : null,
-                AppDisplayName: app.TryGetProperty("displayName", out var dn) ? dn.GetString() : null,
-                AppVersion: app.TryGetProperty("version", out var ver) ? ver.GetString() : null
-            ))
-            .Where(a => a.AppId != null)
-            .ToList();
-
-        // Fetch devices in controlled batches to avoid throttling
-        const int batchSize = 4;
-        var allDevices = new List<DetectedAppDevice>();
-
-        for (int i = 0; i < appInfos.Count; i += batchSize)
-        {
-            var batch = appInfos.Skip(i).Take(batchSize);
-            var tasks = batch.Select(async app =>
-            {
-                var devices = await FetchAllPagesRawAsync(
-                    $"https://graph.microsoft.com/beta/deviceManagement/detectedApps/{app.AppId}/managedDevices?$select=id,deviceName,userPrincipalName&$top=999");
-
-                return devices.Select(device => new DetectedAppDevice(
-                    device.TryGetProperty("deviceName", out var devName) ? devName.GetString() : null,
-                    device.TryGetProperty("id", out var devId) ? devId.GetString() : null,
-                    app.AppVersion,
-                    app.AppDisplayName,
-                    device.TryGetProperty("userPrincipalName", out var upn) ? upn.GetString() : null
-                ));
-            }).ToList();
-
-            var batchResults = await Task.WhenAll(tasks);
-            allDevices.AddRange(batchResults.SelectMany(r => r));
-        }
-
-        _detectedAppCache[appName] = (allDevices, DateTime.UtcNow);
-        return allDevices;
     }
 
     public async Task<List<AutopilotPrepPolicyItem>> GetDevicePreparationPoliciesAsync()

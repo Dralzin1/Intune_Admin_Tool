@@ -28,7 +28,6 @@ public interface IGraphService
     Task<List<WindowsUpdateRing>> GetWindowsUpdateRingsAsync();
     Task<List<WindowsFeatureUpdate>> GetWindowsFeatureUpdatesAsync();
     Task<List<WindowsDriverUpdate>> GetWindowsDriverUpdatesAsync();
-    Task<List<DetectedAppDevice>> GetDetectedAppDevicesAsync(string appName);
     Task<List<AppProtectionPolicyItem>> GetAppProtectionPoliciesAsync();
     Task<List<ProfileAssignment>> GetAppProtectionPolicyAssignmentsAsync(string policyId, string policyType);
     Task<List<AutopilotPrepPolicyItem>> GetDevicePreparationPoliciesAsync();
@@ -162,12 +161,6 @@ public record WindowsDriverUpdate(
     DateTimeOffset? CreatedDateTime,
     DateTimeOffset? LastModifiedDateTime);
 
-public record DetectedAppDevice(
-    string? DeviceName,
-    string? DeviceId,
-    string? AppVersion,
-    string? AppDisplayName,
-    string? UserPrincipalName);
 
 public record AppProtectionPolicyItem(
     string? Id,

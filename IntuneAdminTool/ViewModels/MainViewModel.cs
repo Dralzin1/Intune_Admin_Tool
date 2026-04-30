@@ -42,7 +42,6 @@ public partial class MainViewModel : ObservableObject
     public AppProtectionViewModel AppProtectionViewModel { get; }
     public AutopilotViewModel AutopilotViewModel { get; }
     public WindowsUpdatesViewModel WindowsUpdatesViewModel { get; }
-    public M365AppsViewModel M365AppsViewModel { get; }
     public ReportsViewModel ReportsViewModel { get; }
     public SettingsViewModel SettingsViewModel { get; }
 
@@ -58,7 +57,6 @@ public partial class MainViewModel : ObservableObject
         AppProtectionViewModel = new AppProtectionViewModel(graphService);
         AutopilotViewModel = new AutopilotViewModel(graphService);
         WindowsUpdatesViewModel = new WindowsUpdatesViewModel(graphService);
-        M365AppsViewModel = new M365AppsViewModel(graphService);
         ReportsViewModel = new ReportsViewModel(graphService);
         SettingsViewModel = new SettingsViewModel(authService);
 
@@ -160,12 +158,6 @@ public partial class MainViewModel : ObservableObject
         _ = WindowsUpdatesViewModel.LoadWindowsUpdatesCommand.ExecuteAsync(null);
     }
 
-    [RelayCommand]
-    private void NavigateToM365Apps()
-    {
-        CurrentView = M365AppsViewModel;
-        _ = M365AppsViewModel.LoadM365AppsCommand.ExecuteAsync(null);
-    }
 
     [RelayCommand]
     private void NavigateToReports()
